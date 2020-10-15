@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {Map, Marker, TileLayer} from 'react-leaflet';
 import L, {LeafletMouseEvent} from 'leaflet';
-import InputMask from 'react-input-mask';
 
 import {FiPlus} from "react-icons/fi";
 
@@ -10,7 +9,7 @@ import mapMarkerImg from '../images/map-marker.svg';
 import '../styles/pages/create-orphanage.css';
 import Sidebar from "../components/Sidebar";
 import api from "../services/api";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 
 const happyMapIcon = L.icon({
@@ -39,6 +38,13 @@ export default function CreateOrphanage() {
       latitude: lat,
       longitude: lng
     });
+  }
+
+  function onKeyPress(event: any) {
+    const keyCode = event.keyCode || event.which;
+    const keyValue = String.fromCharCode(keyCode);
+    if (!Number(keyValue))
+      event.preventDefault();
   }
 
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
@@ -138,8 +144,7 @@ export default function CreateOrphanage() {
 
             <div className="input-block">
               <label htmlFor="whatsapp">Whatsapp</label>
-              {/*<input id="whatsapp" type="tel" value={whatsapp} onChange={event => setWhatsapp(event.target.value)}/>*/}
-              <InputMask mask="(99) 99999-9999" maskChar={null} value={whatsapp} onChange={event => setWhatsapp(event.target.value)} placeholder="(DDD) 99999-9999" />
+              <input value={whatsapp} onKeyPress={onKeyPress} onChange={event => setWhatsapp(event.target.value)} placeholder="51987654321" />
             </div>
 
             <div className="input-block">

@@ -3,7 +3,7 @@ import {FaWhatsapp} from "react-icons/fa";
 import {FiClock, FiInfo} from "react-icons/fi";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import L from 'leaflet';
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 import mapMarkerImg from '../images/map-marker.svg';
 
@@ -26,6 +26,7 @@ interface Orphanage {
   about: string;
   instructions: string;
   opening_hours: string;
+  whatsapp: string;
   open_on_weekends: boolean;
   name: string;
   images: {
@@ -94,7 +95,7 @@ export default function Orphanage() {
               </Map>
 
               <footer>
-                <a target="_blank" rel="noopener noreferred" href={`https://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude},${orphanage.longitude}`}>Ver rotas no Google Maps</a>
+                <a target="_blank" rel="noopener noreferrer" href={`https://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude},${orphanage.longitude}`}>Ver rotas no Google Maps</a>
               </footer>
             </div>
 
@@ -124,10 +125,16 @@ export default function Orphanage() {
               )}
             </div>
 
-            <button type="button" className="contact-button">
-              <FaWhatsapp size={20} color="#FFF" />
-              Entrar em contato
-            </button>
+
+
+                <button type="button" className="contact-button" onClick={() => {
+                  window.open(`https://wa.me/55${orphanage.whatsapp}`)
+                }}>
+                <FaWhatsapp size={20} color="#FFF" />
+                Entrar em contato
+                </button>
+
+
           </div>
         </div>
       </main>
